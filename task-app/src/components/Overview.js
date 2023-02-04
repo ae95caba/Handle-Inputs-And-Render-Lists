@@ -4,27 +4,19 @@ export class Overview extends React.Component {
   render() {
     return (
       <ul>
-        {this.props.arr.map((value) => {
+        {this.props.arr.map((task) => {
           return (
-            <li key={value}>
-              {this.props.arr.indexOf(value) + 1}-
-              <span id={`${value}-span`}>{value}</span>{" "}
-              <input style={{ display: "none" }} id={`${value}-input`} />
-              <button id={value} onClick={this.props.deleteItem}>
-                Delete
-              </button>
-              <button
-                onClick={this.props.editItem}
-                className={value}
-                id={`${value}-edit-button`}
-              >
+            <li key={task.id} id={task.id}>
+              {this.props.arr.indexOf(task) + 1}-<span>{task.tittle}</span>{" "}
+              <input style={{ display: "none" }} />
+              <button onClick={this.props.deleteItem}>Delete</button>
+              <button onClick={this.props.editItem} className="edit-button">
                 Edit
               </button>
               <button
-                className={value}
+                className="confirm-button"
                 onClick={this.props.confirmEdit}
                 style={{ display: "none" }}
-                id={`${value}-confirm-button`}
               >
                 Confirm
               </button>

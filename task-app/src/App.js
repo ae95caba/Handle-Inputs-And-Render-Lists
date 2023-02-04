@@ -26,35 +26,37 @@ class App extends React.Component {
   }
 
   deleteItem = (e) => {
+    const taskId = e.target.parentElement.id;
+
     let arr = this.state.tasks;
-    const index = arr.indexOf(e.target.id);
+    const index = arr.findIndex((x) => x.id === taskId);
+
     arr.splice(index, 1);
     this.setState({ tasks: arr });
   };
 
   editItem = (e) => {
-    document.getElementById(`${e.target.className}-span`).style.display =
-      "none";
-    document.getElementById(`${e.target.className}-input`).style.display =
+    const taskId = e.target.parentElement.id;
+    console.log(document.querySelector(`#${taskId} span`));
+    document.querySelector(`#${taskId} span`).style.display = "none";
+    document.querySelector(`#${taskId} input`).style.display = "inline";
+    document.querySelector(`#${taskId} .confirm-button`).style.display =
       "inline";
-    document.getElementById(
-      `${e.target.className}-confirm-button`
-    ).style.display = "inline";
     e.target.style.display = "none";
   };
 
   confirmEdit = (e) => {
-    document.getElementById(`${e.target.className}-span`).style.display =
-      "inline";
-    document.getElementById(`${e.target.className}-input`).style.display =
-      "none";
-    document.getElementById(`${e.target.className}-edit-button`).style.display =
-      "inline";
+    const taskId = e.target.parentElement.id;
+    document.querySelector(`#${taskId} span`).style.display = "inline";
+    document.querySelector(`#${taskId} input`).style.display = "none";
+    document.querySelector(`#${taskId} .edit-button`).style.display = "inline";
+
     e.target.style.display = "none";
     /////
-    const index = this.state.tasks.indexOf(e.target.className);
+
     const arr = this.state.tasks;
-    arr[index] = document.getElementById(`${e.target.className}-input`).value;
+    const index = arr.findIndex((x) => x.id === taskId);
+    arr[index].tittle = document.querySelector(`#${taskId} input`).value;
 
     this.setState({ tasks: arr });
   };
